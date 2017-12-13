@@ -11,9 +11,9 @@ int blue = 5;
 
 bool comparee(int cubeA[6][3][3], int cubeB[6][3][3]){
     for(int i = 0; i < 6; i++){
-        for(int j = 0; j < 6; j++){
-            for(int k = 0; k < 6; k++){
-                if (cubeA[i][j][k] == cubeB[i][j][k]){
+        for(int j = 0; j < 3; j++){
+            for(int k = 0; k < 3; k++){
+                if (cubeA[i][j][k] != cubeB[i][j][k]){
                     return false;
                 }
             }
@@ -58,6 +58,16 @@ void greencw(int cube[6][3][3], int newCube[6][3][3]){
     cw(cube[green], newCube[green]);
 }
 
+void greenccw(int cube[6][3][3], int newCube[6][3][3]){
+    for(int i = 0; i < 3; i++){
+        newCube[white][0][i] = cube[red][0][i];
+        newCube[orange][0][i] = cube[white][0][i];
+        newCube[yellow][0][i] = cube[orange][0][i];
+        newCube[red][0][i] = cube[yellow][0][i];
+    }
+    ccw(cube[green], newCube[green]);
+}
+
 int main()
 {
     int solve[6][3][3];
@@ -68,7 +78,6 @@ int main()
             }
         }
     }
-
     int myCube[6][3][3] = {
         {
             {
@@ -138,23 +147,18 @@ int main()
         }
     };
 
-    for (int i = 0; i < 6; i++){
-        for (int j = 0; j < 3; j++){
-            for(int k = 0; k < 3; k++){
-                cout << myCube[i][j][k];
-            }
-            cout << endl;
-        }
-        cout << endl;
-    }
-
     int rotated[6][3][3];
-    greencw(myCube, rotated);
-    copify(myCube, rotated);
+    copify(solve, rotated);
+    greenccw(solve, rotated);
+
+    int rotato[6][3][3];
+    copify(rotated, rotato);
+    greencw(rotated, rotato);
+
     for (int i = 0; i < 6; i++){
         for (int j = 0; j < 3; j++){
             for(int k = 0; k < 3; k++){
-                cout << rotated[i][j][k];
+                cout << rotato[i][j][k];
             }
             cout << endl;
         }
