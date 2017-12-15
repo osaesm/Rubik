@@ -49,6 +49,8 @@ void ccw(int face[3][3], int newFace[3][3]){
 }
 
 void greencw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+
     for(int i = 0; i < 3; i++){
         newCube[white][0][i] = cube[orange][0][i];
         newCube[red][0][i] = cube[white][0][i];
@@ -59,6 +61,7 @@ void greencw(int cube[6][3][3], int newCube[6][3][3]){
 }
 
 void greenccw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
     for(int i = 0; i < 3; i++){
         newCube[white][0][i] = cube[red][0][i];
         newCube[orange][0][i] = cube[white][0][i];
@@ -66,6 +69,123 @@ void greenccw(int cube[6][3][3], int newCube[6][3][3]){
         newCube[red][0][i] = cube[yellow][0][i];
     }
     ccw(cube[green], newCube[green]);
+}
+
+void whitecw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[orange][i][0] = cube[green][2][i];
+        newCube[blue][0][2 - i] = cube[orange][i][0];
+        newCube[red][i][2] = cube[blue][0][i];
+        newCube[green][2][i] = cube[red][2 - i][2];
+    }
+    cw(cube[white], newCube[white]);
+}
+
+void whiteccw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[green][2][i] = cube[orange][i][0];
+        newCube[orange][i][0] = cube[blue][0][2 - i];
+        newCube[blue][0][i] = cube[red][i][2];
+        newCube[red][2 - i][2] = cube[green][2][i];
+    }
+    ccw(cube[white], newCube[white]);
+}
+
+void orangecw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[green][i][2] = cube[white][i][2];
+        newCube[white][i][2] = cube[blue][i][2];
+        newCube[blue][i][2] = cube[yellow][2 - i][0];
+        newCube[yellow][i][0] = cube[green][2 - i][2];
+    }
+    cw(cube[orange], newCube[orange]);
+}
+
+void orangeccw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[green][i][2] = cube[yellow][2 - i][0];
+        newCube[yellow][2 - i][0] = cube[blue][i][2];
+        newCube[blue][i][2] = cube[white][i][2];
+        newCube[white][i][2] = cube[green][i][2];
+    }
+    ccw(cube[orange], newCube[orange]);
+}
+
+void yellowcw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[red][2 - i][0] = cube[green][0][i];
+        newCube[blue][2][i] = cube[red][i][0];
+        newCube[orange][2 - i][2] = cube[blue][2][i];
+        newCube[green][0][i] = cube[orange][i][2];
+    }
+    cw(cube[yellow], newCube[yellow]);
+}
+
+void yellowccw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[green][0][i] = cube[red][2 - i][0];
+        newCube[red][i][0] = cube[blue][2][i];
+        newCube[blue][2][i] = cube[orange][2 - i][2];
+        newCube[orange][i][2] = cube[green][0][i];
+    }
+    ccw(cube[yellow], newCube[yellow]);
+}
+
+void redcw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[green][i][0] = cube[yellow][2 - i][2];
+        newCube[yellow][i][2] = cube[blue][2 - i][0];
+        newCube[blue][i][0] = cube[white][i][0];
+        newCube[white][i][0] = cube[green][i][0];
+    }
+    cw(cube[red], newCube[red]);
+}
+
+void redccw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[green][i][0] = cube[white][i][0];
+        newCube[white][i][0] = cube[blue][i][0];
+        newCube[blue][i][0] = cube[yellow][2 - i][2];
+        newCube[yellow][i][2] = cube[green][2 - i][0];
+    }
+    ccw(cube[red], newCube[red]);
+}
+
+void bluecw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[white][2][i] = cube[red][2][i];
+        newCube[orange][2][i] = cube[white][2][i];
+        newCube[yellow][2][i] = cube[orange][2][i];
+        newCube[red][2][i] = cube[yellow][2][i];
+    }
+    cw(cube[blue], newCube[blue]);
+}
+
+void blueccw(int cube[6][3][3], int newCube[6][3][3]){
+    copify(cube, newCube);
+    for(int i = 0; i < 3; i++){
+        newCube[white][2][i] = cube[orange][2][i];
+        newCube[red][2][i] = cube[white][2][i];
+        newCube[yellow][2][i] = cube[red][2][i];
+        newCube[orange][2][i] = cube[yellow][2][i];
+    }
+    ccw(cube[blue], newCube[blue]);
+}
+
+void pickTurn(preMove, index, postMove){
+    copify(preMove, postMove);
+    if (index == 0){
+        greencw(preMove, postMove);
+    }
 }
 
 int main()
@@ -84,32 +204,32 @@ int main()
                 white, orange, white
             },
             {
-                yellow, green, yellow
+                white, green, blue
             },
             {
-                yellow, blue, orange
+                blue, red, orange
             }
         },
         {
             {
-                green, red, blue
+                orange, blue, green
             },
             {
-                blue, white, orange
+                green, white, orange
             },
             {
-                green, yellow, blue
+                red, yellow, green
             }
         },
         {
             {
-                yellow, red, red
+                white, white, red
             },
             {
-                white, orange, blue
+                blue, orange, orange
             },
             {
-                yellow, green, white
+                red, yellow, blue
             }
         },
         {
@@ -117,48 +237,46 @@ int main()
                 blue, green, blue
             },
             {
-                orange, yellow, white
+                white, yellow, white
             },
             {
-                green, red, green
+                yellow, orange, orange
             }
         },
         {
             {
-                orange, orange, red
+                orange, green, yellow
             },
             {
-                green, red, yellow
+                red, red, red
+            },
+            {
+                green, green, white
+            }
+        },
+        {
+            {
+                green, blue, yellow
             },
             {
                 yellow, blue, red
-            }
-        },
-        {
-            {
-                white, green, red
             },
             {
-                white, blue, red
-            },
-            {
-                orange, white, orange
+                yellow, yellow, red
             }
         }
     };
 
-    int rotated[6][3][3];
-    copify(solve, rotated);
-    greenccw(solve, rotated);
+    int rotated1[6][3][3];
+    bluecw(solve, rotated1);
 
-    int rotato[6][3][3];
-    copify(rotated, rotato);
-    greencw(rotated, rotato);
+    int rotated2[6][3][3];
+    blueccw(rotated1, rotated2);
 
     for (int i = 0; i < 6; i++){
         for (int j = 0; j < 3; j++){
-            for(int k = 0; k < 3; k++){
-                cout << rotato[i][j][k];
+            for (int k = 0; k < 3; k++){
+                cout << rotated2[i][j][k];
             }
             cout << endl;
         }
