@@ -181,11 +181,182 @@ void blueccw(int cube[6][3][3], int newCube[6][3][3]){
     ccw(cube[blue], newCube[blue]);
 }
 
-void pickTurn(preMove, index, postMove){
+void pickTurn(int preMove[6][3][3], int index, int postMove[6][3][3]){
     copify(preMove, postMove);
     if (index == 0){
         greencw(preMove, postMove);
     }
+    else if (index == 1){
+        greenccw(preMove, postMove);
+    }
+    else if (index == 2){
+        whitecw(preMove, postMove);
+    }
+    else if (index == 3){
+        whiteccw(preMove, postMove);
+    }
+    else if (index == 4){
+        orangecw(preMove, postMove);
+    }
+    else if (index == 5){
+        orangeccw(preMove, postMove);
+    }
+    else if (index == 6){
+        yellowcw(preMove, postMove);
+    }
+    else if (index == 7){
+        yellowccw(preMove, postMove);
+    }
+    else if (index == 8){
+        redcw(preMove, postMove);
+    }
+    else if (index == 9){
+        redccw(preMove, postMove);
+    }
+    else if (index == 10){
+        bluecw(preMove, postMove);
+    }
+    else{
+        blueccw(preMove, postMove);
+    }
+}
+
+int doMoves(int cube[6][3][3], int step, int compare[6][3][3]){
+    if (step == 0){
+        if (comparee(cube, compare)){
+            return 0;
+        }
+        return doMoves(cube, ++step, compare);
+    }
+
+    if (step == 1){
+        for(int i = 0; i < 12; i++){
+            int nextMove[6][3][3];
+            pickTurn(cube, i, nextMove);
+            if(comparee(nextMove, compare)){
+                return 1;
+            }
+        }
+        return doMoves(cube, ++step, compare);
+    }
+
+    if (step == 2){
+        for(int a = 0; a < 12; a++){
+            int nextA[6][3][3];
+            pickTurn(cube, a, nextA);
+            for(int b = 0; b < 12; b++){
+                int nextB[6][3][3];
+                pickTurn(nextA, b, nextB);
+                if(comparee(nextB, compare)){
+                    return step;
+                }
+            }
+        }
+        return doMoves(cube, ++step, compare);
+    }
+
+    if (step == 3){
+        for(int a = 0; a < 12; a++){
+            int nextA[6][3][3];
+            pickTurn(cube, a, nextA);
+            for(int b = 0; b < 12; b++){
+                int nextB[6][3][3];
+                pickTurn(nextA, b, nextB);
+                for(int c = 0; c < 12; c++){
+                    int nextC[6][3][3];
+                    pickTurn(nextB, c, nextC);
+                    if(comparee(nextC, compare)){
+                        return step;
+                    }
+                }
+            }
+        }
+        return doMoves(cube, ++step, compare);
+    }
+
+    if (step == 4){
+        for(int a = 0; a < 12; a++){
+            int nextA[6][3][3];
+            pickTurn(cube, a, nextA);
+            for(int b = 0; b < 12; b++){
+                int nextB[6][3][3];
+                pickTurn(nextA, b, nextB);
+                for(int c = 0; c < 12; c++){
+                    int nextC[6][3][3];
+                    pickTurn(nextB, c, nextC);
+                    for(int d = 0; d < 12; d++){
+                        int nextD[6][3][3];
+                        pickTurn(nextC, d, nextD);
+                        if(comparee(nextD, compare)){
+                            return step;
+                        }
+                    }
+                }
+            }
+        }
+        return doMoves(cube, ++step, compare);
+    }
+
+    if (step == 5){
+        for(int a = 0; a < 12; a++){
+            int nextA[6][3][3];
+            pickTurn(cube, a, nextA);
+            for(int b = 0; b < 12; b++){
+                int nextB[6][3][3];
+                pickTurn(nextA, b, nextB);
+                for(int c = 0; c < 12; c++){
+                    int nextC[6][3][3];
+                    pickTurn(nextB, c, nextC);
+                    for(int d = 0; d < 12; d++){
+                        int nextD[6][3][3];
+                        pickTurn(nextC, d, nextD);
+                        for(int e = 0; e < 12; e++){
+                            int nextE[6][3][3];
+                            pickTurn(nextD, e, nextE);
+                            if(comparee(nextE, compare)){
+                                return step;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return doMoves(cube, ++step, compare);
+    }
+
+    if (step == 6){
+        for(int a = 0; a < 12; a++){
+            int nextA[6][3][3];
+            pickTurn(cube, a, nextA);
+            for(int b = 0; b < 12; b++){
+                int nextB[6][3][3];
+                pickTurn(nextA, b, nextB);
+                for(int c = 0; c < 12; c++){
+                    int nextC[6][3][3];
+                    pickTurn(nextB, c, nextC);
+                    for(int d = 0; d < 12; d++){
+                        int nextD[6][3][3];
+                        pickTurn(nextC, d, nextD);
+                        for(int e = 0; e < 12; e++){
+                            int nextE[6][3][3];
+                            pickTurn(nextD, e, nextE);
+                            for(int f = 0; f < 12; f++){
+                                int nextF[6][3][3];
+                                pickTurn(nextE, f, nextF);
+                                if(comparee(nextF, compare)){
+                                    return step;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return doMoves(cube, ++step, compare);
+    }
+
+
+    return -1;
 }
 
 int main()
@@ -268,20 +439,20 @@ int main()
     };
 
     int rotated1[6][3][3];
-    bluecw(solve, rotated1);
-
+    pickTurn(solve, 11, rotated1);
     int rotated2[6][3][3];
-    blueccw(rotated1, rotated2);
+    pickTurn(rotated1, 2, rotated2);
+    int rotated3[6][3][3];
+    pickTurn(rotated2, 7, rotated3);
+    int rotated4[6][3][3];
+    pickTurn(rotated3, 10, rotated4);
+    int rotated5[6][3][3];
+    pickTurn(rotated4, 0, rotated5);
+    int rotated6[6][3][3];
+    pickTurn(rotated5, 3, rotated6);
 
-    for (int i = 0; i < 6; i++){
-        for (int j = 0; j < 3; j++){
-            for (int k = 0; k < 3; k++){
-                cout << rotated2[i][j][k];
-            }
-            cout << endl;
-        }
-        cout << endl;
-    }
+
+    cout << doMoves(solve, 0, myCube);
 
     return 0;
 }
